@@ -1,8 +1,9 @@
 import { createStore, combineReducers } from 'redux';
-import { text } from './components/reducers';
+import { greeting, name } from './components/reducers';
 
 const reducer = combineReducers({
-  text
+  greeting,
+  name
 });
 
 const store = createStore(

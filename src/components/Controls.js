@@ -1,46 +1,44 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeGreeting, changeName } from './actions';
 
-export default class Controls extends Component {
+class Controls extends Component {
 
-  constructor(props) {
-    super(props);
+ 
 
-    this.state = {
-      greeting: '',
-      name: ''
-    };
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.setState({ 
-      greeting: '',
-      name: ''
-    });
+  handleGreetingChange = ({ target }) => {
+    this.props.changeGreeting(target.value);
   };
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
+  handleNameChange = ({ target }) => {
+    this.props.changeName(target.value);
   };
 
   render() {
 
-    const { greeting, name } = this.state;
+    const { greeting, name } = this.props;
 
     return (
       <div>
-        <form onSubmit = {this.handleSubmit}>
-          <label htmlFor="greeting"> Greeting: 
-          <input required id="greeting" name="greeting" value={greeting} onChange={this.handleChange} placeholder="ex: Hello"/>
-          </label>
-
-          <label htmlFor="name"> Name:
-          <input required id="name" name="name" value={name} onChange={this.handleChange} placeholder="ex: Name"/>
-          </label>
         
-          <button type="submit">Add</button>
-        </form>
+        <label htmlFor="greeting"> Greeting: 
+        <input required id="greeting" name="greeting" value={greeting} onChange={this.handleGreetingChange} placeholder="ex: Hello"/>
+        </label>
+
+        <label htmlFor="name"> Name:
+        <input required id="name" name="name" value={name} onChange={this.handleNameChange} placeholder="ex: Name"/>
+        </label>
+        
+        
       </div>
     );
   }
 }
+
+export default connect(
+  state => ({
+    greeting: state.greeting,
+    name: state.name
+  }),
+  { changeGreeting, changeName }
+)(Controls);

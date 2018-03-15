@@ -1,8 +1,11 @@
-import { DISPLAY_TEXT } from './reducers';
+import { GREETING, NAME } from './reducers';
 
-export function displayText(text) {
-  return {
-    type: DISPLAY_TEXT,
-    payload: text
-  };
-}
+export const displayText = ACTION => payload => {
+  return ({ 
+    type: ACTION,
+    payload 
+  });
+};
+
+export const changeGreeting = displayText(GREETING);
+export const changeName = displayText(NAME);

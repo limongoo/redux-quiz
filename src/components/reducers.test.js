@@ -1,16 +1,30 @@
-import { text, DISPLAY_TEXT } from './reducers';
+import { stringReducer, GREETING } from './reducers';
+import { displayText } from './actions';
 
-it('Has a default of empty array', () => {
-  const state = text(undefined, {});
-  expect(state).toEqual([]);
+describe('reducers', () => {
+  
+  const textGreeting = stringReducer('Hello', GREETING);
+
+  it('initialize', () => {
+    expect(textGreeting(undefined, {})).toBe('Hello');
+  });
+  
+  
+  it('update greeting', () => {
+    const state = textGreeting('Hello', { type: GREETING, payload: 'Hi' });
+    expect(state).toBe('Hi');
+  });
+
 });
 
-const textToAdd = {
-  greeting: 'Hello',
-  name: 'Name'
-};
+describe('actions', () => {
+  const change = displayText(GREETING);
 
-it('Add Text', () => {
-  const state = text([], { type: DISPLAY_TEXT, payload: textToAdd });
-  expect(state).toEqual([textToAdd]);
+  it('makes change', () => {
+    const action = change('Hola');
+    expect(action).toEqual({
+      type: GREETING,
+      payload: 'Hola'
+    });
+  });
 });

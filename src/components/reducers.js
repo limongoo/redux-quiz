@@ -1,13 +1,14 @@
-export const DISPLAY_TEXT = 'DISPLAY_TEXT';
+export const GREETING = 'GREETING';
+export const NAME = 'NAME';
 
-export function text(state = [], { type, payload }) {
+export const stringReducer = (initial, ACTION) => (state = initial, { type, payload }) => {
   switch (type) {
-    case DISPLAY_TEXT:
-      return [
-        ...state,
-        payload
-      ];
+    case ACTION:
+      return payload;
     default:
       return state;
   }
-}
+};
+
+export const greeting = stringReducer('', GREETING);
+export const name = stringReducer('', NAME);
